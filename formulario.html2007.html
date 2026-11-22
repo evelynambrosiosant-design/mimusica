@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Formulario de registro</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#b8a1ff; --card:#fffdf8; --ink:#16121f; --muted:#5b5470; --pink:#ff4d8d; --lime:#c6ff4d;
+  --ok:#0f9d58; --bad:#e5251b; --shadow:#16121f;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#2a1f4d;--card:#1d1830;--ink:#f4f0ff;--muted:#b6aed0;--shadow:#000;--lime:#c6ff4d}
+}
+:root[data-theme="dark"]{--bg:#2a1f4d;--card:#1d1830;--ink:#f4f0ff;--muted:#b6aed0;--shadow:#000}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+.hidden{display:none!important}
+
+/* ---------- Página 1: formulario ---------- */
+#registro{display:flex;justify-content:center;padding:28px 16px 48px}
+.card{width:100%;max-width:520px;background:var(--card);border:3px solid var(--ink);border-radius:20px;box-shadow:8px 8px 0 var(--shadow);padding:26px 22px 24px}
+h1{font-size:clamp(1.9rem,7vw,2.6rem);line-height:1;margin:0 0 6px;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);font-size:.95rem}
+.sticker{display:inline-block;background:var(--lime);color:#16121f;border:2px solid var(--ink);border-radius:999px;padding:3px 12px;font-weight:700;font-size:.8rem;transform:rotate(-2deg);margin-bottom:12px}
+.field{margin-bottom:16px}
+label{display:block;font-weight:700;margin-bottom:6px;font-size:.95rem}
+input{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:transparent;border:2.5px solid var(--ink);border-radius:12px;padding:12px 14px;outline:none;transition:box-shadow .15s,border-color .15s}
+input::placeholder{color:var(--muted);opacity:.7}
+input:focus-visible{box-shadow:4px 4px 0 var(--pink)}
+input.bad{border-color:var(--bad);box-shadow:4px 4px 0 var(--bad)}
+input.good{border-color:var(--ok)}
+.hint{display:block;min-height:1.1em;margin-top:5px;font-size:.8rem;color:var(--bad);font-weight:500}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:440px){.row{grid-template-columns:1fr}}
+#btn{width:100%;margin-top:8px;font:inherit;font-weight:700;font-size:1.1rem;color:#fff;background:var(--pink);border:3px solid var(--ink);border-radius:14px;padding:15px;cursor:pointer;box-shadow:5px 5px 0 var(--shadow);transition:transform .1s,box-shadow .1s,background .2s}
+#btn:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--shadow)}
+#btn:active{transform:translate(4px,4px);box-shadow:1px 1px 0 var(--shadow)}
+#btn:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+#btn.ok{background:var(--ok)}
+#btn.err{background:var(--bad);animation:shake .4s}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@media(prefers-reduced-motion:reduce){#btn.err{animation:none}}
+
+/* ---------- Página 2: estilo Spotify ---------- */
+#musica{--g:#1ed760;background:#121212;color:#fff;min-height:100vh;padding:0 0 110px}
+.top{background:linear-gradient(180deg,#1f6f43 0%,#121212 100%);padding:28px 18px 18px}
+.bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.25rem;letter-spacing:-.02em}
+.dot{width:30px;height:30px;border-radius:50%;background:var(--g);display:grid;place-items:center;color:#000;font-size:.9rem}
+.out{background:transparent;border:1px solid #777;color:#fff;border-radius:999px;padding:7px 14px;font:inherit;font-size:.85rem;cursor:pointer}
+.out:hover{border-color:#fff}
+#musica h2{font-size:clamp(1.6rem,6vw,2.2rem);margin:0 0 14px;letter-spacing:-.02em;overflow-wrap:anywhere}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:#ffffff1f;border-radius:999px;padding:7px 14px;font-size:.85rem}
+.chip.on{background:var(--g);color:#000;font-weight:700}
+.sec{padding:20px 18px 0}
+.sec h3{margin:0 0 12px;font-size:1.25rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.pl{background:#181818;border-radius:10px;padding:12px;cursor:pointer;transition:background .2s;border:0;color:#fff;text-align:left;font:inherit}
+.pl:hover,.pl.sel{background:#2a2a2a}
+.art{aspect-ratio:1;border-radius:8px;margin-bottom:10px;box-shadow:0 8px 20px #0008}
+.pl b{display:block;font-size:.95rem;overflow-wrap:anywhere}
+.pl span{font-size:.8rem;color:#b3b3b3}
+.player{position:fixed;left:0;right:0;bottom:0;background:#000;border-top:1px solid #282828;display:flex;align-items:center;gap:12px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px))}
+.mini{width:46px;height:46px;border-radius:6px;flex:none}
+.info{min-width:0;flex:1}
+.info b,.info span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.info span{font-size:.8rem;color:#b3b3b3}
+#play{width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#000;font-size:1.1rem;cursor:pointer;flex:none}
+#play:focus-visible,.out:focus-visible,.pl:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+.prog{position:absolute;left:0;top:-2px;height:3px;background:var(--g);width:0}
+</style>
+</head>
+<body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiPlay - Plantilla</title>
+ 
+<body> 
+
+  <!-- Fondo oscuro que aparece cuando el menú está abierto en celular -->
+  <div class="" id="fondoMenu"></div>
+
+  <div class="contenedor">
+
+    <aside class="menu-lateral" id="menuLateral">
+      <div class="puntos">
+        <span class="punto punto-rojo"></span>
+        <span class="punto punto-amarillo"></span>
+        <span class="punto punto-verde"></span>
+      </div>
+      <h2 class="menu-titulo">Biblioteca</h2>
+      <nav>
+        <ul class="menu-lista">
+          <li><a href="#" class="activo">Explorar</a></li>
+          <li><a href="RAUW-.html">Rauw Alejandro</a></li>
+          <li><a href="alvaro.html">Álvaro Díaz</a></li>
+          <li><a href="mon.html">Mon Laferte</a></li>
+          <li><a href="yan.html">Yan Block</a></li>
+
+        </ul>
+      </nav><main id="registro">
+  <section class="card">
+    <h1>Subcribete</h1>
+    <p class="sub">Llena tus datos.</p>
+
+    <div class="field">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" maxlength="100" autocomplete="given-name" placeholder="">
+      <span class="hint" id="h-nombre"></span>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="paterno">Apellido paterno</label>
+        <input id="paterno" type="text" maxlength="100" autocomplete="off" placeholder="">
+        <span class="hint" id="h-paterno"></span>
+      </div>
+      <div class="field">
+        <label for="materno">Apellido materno</label>
+        <input id="materno" type="text" maxlength="100" autocomplete="off" placeholder="">
+        <span class="hint" id="h-materno"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="edad">Edad</label>
+        <input id="edad" type="text" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="">
+        <span class="hint" id="h-edad"></span>
+      </div>
+      <div class="field">
+        <label for="nacimiento">Fecha de nacimiento</label>
+        <input id="nacimiento" type="date">
+        <span class="hint" id="h-nacimiento"></span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="tarjeta">Número de tarjeta</label>
+      <input id="tarjeta" type="text" inputmode="numeric" maxlength="16" autocomplete="off" placeholder="">
+      <span class="hint" id="h-tarjeta"></span>
+    </div>
+
+    <button id="btn" type="button">Validar</button>
+    <span class="hint" id="estado" role="status" aria-live="polite" style="text-align:center"></span>
+  </section>
+</main>
+
+
+
+<script>
+(function(){
+  var $ = function(id){return document.getElementById(id)};
+  var NOMBRE = /[^A-ZÁÉÍÓÚÜÑ ]/g;
+  var ok = false, timer = null;
+
+  // Nombres: mayúsculas, solo letras/acentos/espacios, máx. 100
+  ["nombre","paterno","materno"].forEach(function(id){
+    $(id).addEventListener("input", function(e){
+      var v = e.target.value.toUpperCase().replace(NOMBRE,"").slice(0,100);
+      if(v !== e.target.value) e.target.value = v;
+    });
+  });
+  // Edad: solo dígitos, máx. 3
+  $("edad").addEventListener("input", function(e){
+    e.target.value = e.target.value.replace(/\D/g,"").slice(0,3);
+  });
+  // Tarjeta: solo dígitos, máx. 16
+  $("tarjeta").addEventListener("input", function(e){
+    e.target.value = e.target.value.replace(/\D/g,"").slice(0,16);
+  });
+
+  function marca(id, msg){
+    var el = $(id), h = $("h-"+id);
+    h.textContent = msg || "";
+    el.classList.toggle("bad", !!msg);
+    el.classList.toggle("good", !msg);
+    return !msg;
+  }
+  function nombreOk(id, etiqueta){
+    var v = $(id).value.trim();
+    if(!v) return marca(id, "Escribe tu "+etiqueta+".");
+    if(/[^A-ZÁÉÍÓÚÜÑ ]/.test(v)) return marca(id, "Solo letras y acentos.");
+    return marca(id, "");
+  }
+  function validar(){
+    var r = [
+      nombreOk("nombre","nombre"),
+      nombreOk("paterno","apellido paterno"),
+      nombreOk("materno","apellido materno"),
+      marca("edad", /^\d{1,3}$/.test($("edad").value) ? "" : "Usa de 1 a 3 números."),
+      marca("tarjeta", /^\d{16}$/.test($("tarjeta").value) ? "" : "Deben ser 16 dígitos."),
+      (function(){
+        var f = $("nacimiento").value;
+        if(!f) return marca("nacimiento","Elige una fecha.");
+        if(new Date(f) > new Date()) return marca("nacimiento","La fecha no puede ser futura.");
+        return marca("nacimiento","");
+      })()
+    ];
+    return r.every(Boolean);
+  }
+
+  $("btn").addEventListener("click", function(){
+    var b = $("btn"), est = $("estado");
+    clearTimeout(timer);
+    b.classList.remove("ok","err"); void b.offsetWidth;
+    if(validar()){
+      b.classList.add("ok"); b.textContent = "Todo está en orden";
+      est.style.color = "var(--ok)"; est.textContent = "Entrando a tu música…";
+      ok = true;
+      timer = setTimeout(function(){ window.location.href = "index.html"; vista(); }, 1300);
+    }else{
+      b.classList.add("err"); b.textContent = "Error";
+      est.style.color = "var(--bad)"; est.textContent = "Revisa los campos marcados en rojo.";
+      timer = setTimeout(function(){ b.classList.remove("err"); b.textContent = "Validar"; }, 2000);
+    }
+  });
+
+  /* ---- Página tipo Spotify ---- */
+  var listas = [
+    ["Mix diario 1","Café, Zoé y más","linear-gradient(135deg,#ff6a3d,#c4137a)"],
+    ["Éxitos del día","Lo más escuchado","linear-gradient(135deg,#4facfe,#2b32b2)"],
+    ["Noche tranquila","Piano y calma","linear-gradient(135deg,#1d976c,#0b3d2e)"],
+    ["Rock en español","Clásicos que no mueren","linear-gradient(135deg,#f7b733,#fc4a1a)"],
+    ["Para entrenar","Ritmo sin parar","linear-gradient(135deg,#a18cd1,#fbc2eb)"],
+    ["Cumbia y más","Para bailar","linear-gradient(135deg,#00c6ff,#0072ff)"]
+  ];
+  var cur = null, playing = false, pct = 0, tick = null;
+  var cont = $("lista");
+  listas.forEach(function(l, i){
+    var b = document.createElement("button");
+    b.className = "pl"; b.type = "button";
+    b.innerHTML = '<div class="art" style="background:'+l[2]+'"></div><b>'+l[0]+'</b><span>'+l[1]+'</span>';
+    b.addEventListener("click", function(){ elegir(i); });
+    cont.appendChild(b);
+  });
+  function elegir(i){
+    cur = i; pct = 0;
+    [].forEach.call(cont.children, function(c, j){ c.classList.toggle("sel", i === j); });
+    $("pTitulo").textContent = listas[i][0];
+    $("pSub").textContent = listas[i][1];
+    $("miniArt").style.background = listas[i][2];
+    reproducir(true);
+  }
+  function reproducir(on){
+    playing = on;
+    $("play").textContent = on ? "❚❚" : "▶";
+    $("play").setAttribute("aria-label", on ? "Pausar" : "Reproducir");
+    clearInterval(tick);
+    if(on) tick = setInterval(function(){ pct = (pct + .4) % 100; $("prog").style.width = pct + "%"; }, 200);
+  }
+  $("play").addEventListener("click", function(){
+    if(cur === null) elegir(0); else reproducir(!playing);
+  });
+  $("salir").addEventListener("click", function(){
+    ok = false; reproducir(false);
+    var b = $("btn"); b.className = ""; b.textContent = "Validar"; $("estado").textContent = "";
+    history.replaceState(null, "", location.pathname + location.search);
+    vista();
+  });
+
+  function vista(){
+    var musica = ok && location.hash === "#musica";
+    $("registro").classList.toggle("hidden", musica);
+    $("musica").classList.toggle("hidden", !musica);
+    if(musica){
+      $("saludo").textContent = "Hola, " + $("nombre").value.trim().split(" ")[0];
+      window.scrollTo(0,0);
+    }
+  }
+  window.addEventListener("hashchange", vista);
+  vista();
+})();
+</script>
+</body>
+</html>
