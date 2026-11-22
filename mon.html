@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiPlay - Plantilla</title>
+  <!-- Enlazamos el archivo CSS -->
+  <style>
+/* =========================================
+   PLANTILLA MIPLAY - inspirada en Spotify
+   Proyecto de diseño web
+   ========================================= */
+
+/* ---------- 1. COLORES (variables) ---------- */
+:root {
+   --BLANCO-CREMA: #FFF8F5;
+  --beige-claro: #f6efe0;
+  --chocolate: #4b2e1e;
+  --rosa-claro: #F4DDE5;
+  --rosa-claro: #F4DDE5;
+  --rosa-claro: #F4DDE5;  /* burnt orange */
+  --texto: #3a2416;
+  --texto-suave: #8a7560;
+}
+
+/* ---------- 2. REINICIO BÁSICO ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  background-color: var(--chocolate-oscuro);
+  color: var(--texto);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Que se vea el foco cuando se navega con teclado */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--naranja);
+  outline-offset: 2px;
+}
+
+/* ---------- 3. ESTRUCTURA GENERAL (grid) ---------- */
+.contenedor {
+  display: grid;
+  grid-template-columns: 240px 1fr 260px;
+  min-height: 100vh;
+  transition: grid-template-columns 0.3s ease;
+}
+
+/* ---------- 4. MENÚ LATERAL ---------- */
+.menu-lateral {
+  background-color: var(--chocolate);
+  color: var(--beige);
+  padding: 24px 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.puntos {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+
+.punto {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.punto-rojo { background-color: #c8442b; }
+.punto-amarillo { background-color: #d9a441; }
+.punto-verde { background-color: var(--oliva); }
+
+.menu-titulo {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 24px 0 12px 12px;
+}
+
+.menu-lista a {
+  display: block;
+  padding: 10px 16px;
+  margin-bottom: 4px;
+  border-radius: 999px;
+  color: #cdbba0;
+  font-size: 0.95rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu-lista a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--beige);
+}
+
+.menu-lista a.activo {
+  background-color: var(--chocolate-oscuro);
+  color: #e3a36b;
+  font-weight: 600;
+}
+
+.menu-secundaria a {
+  font-size: 0.88rem;
+}
+
+/* Cuando el usuario oprime el botón en computadora: se oculta el menú */
+body.menu-alternado .contenedor {
+  grid-template-columns: 0 1fr 260px;
+}
+
+body.menu-alternado .menu-lateral {
+  padding: 0;
+  visibility: hidden;
+}
+
+/* ---------- 5. ZONA PRINCIPAL ---------- */
+.principal {
+  background-color: var(--beige-claro);
+  border-radius: 28px 0 0 28px;
+  padding: 24px 32px 40px;
+  min-width: 0;
+}
+
+/* Barra superior */
+.barra-superior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.boton-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  background-color: var(--chocolate);
+  border-radius: 12px;
+}
+
+.boton-menu span {
+  display: block;
+  width: 22px;
+  height: 3px;
+  background-color: var(--beige);
+  border-radius: 2px;
+}
+
+.ruta {
+  flex: 1;
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+}
+
+.ruta span:last-child {
+  color: var(--texto);
+}
+
+.separador {
+  margin: 0 8px;
+}
+
+.pestanas {
+  display: flex;
+  gap: 24px;
+  font-size: 0.95rem;
+  color: var(--texto-suave);
+}
+
+.pestanas a.activo {
+  color: var(--texto);
+  font-weight: 600;
+  border-bottom: 3px solid var(--naranja);
+  padding-bottom: 2px;
+}
+
+/* ---------- 6. BANNER ---------- */
+.banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 240px;
+  padding: 32px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(120deg, var(--naranja) 0%, #a24410 55%, var(--chocolate) 100%);
+  box-shadow: 0 14px 30px rgba(75, 46, 30, 0.35);
+}
+
+.banner-texto {
+  position: relative;
+  z-index: 1;
+  width: 55%;
+}
+
+.etiqueta {
+  color: var(--beige);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+/* Barras vacías que hacen de "texto" (la plantilla no lleva información) */
+.linea-titulo,
+.linea-texto {
+  background-color: rgba(246, 239, 224, 0.85);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.linea-titulo {
+  height: 30px;
+  width: 80%;
+  margin-bottom: 18px;
+}
+
+.linea-texto {
+  height: 12px;
+  width: 95%;
+  opacity: 0.55;
+}
+
+.linea-texto.corta {
+  width: 60%;
+}
+
+.banner-datos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.corazon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: var(--beige);
+  color: var(--naranja);
+}
+
+.dato-vacio {
+  width: 120px;
+  height: 10px;
+  border-radius: 6px;
+  background-color: rgba(246, 239, 224, 0.5);
+}
+
+.banner-imagen {
+  width: 38%;
+  height: 200px;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(246, 239, 224, 0.35) 0 22%, transparent 23%),
+    linear-gradient(160deg, var(--oliva), var(--chocolate));
+  opacity: 0.85;
+}
+
+/* ---------- 7. SECCIONES ---------- */
+.seccion {
+  margin-top: 32px;
+}
+
+.seccion-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 18px;
+}
+
+.seccion-encabezado h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.seccion-encabezado a {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+.seccion-encabezado a:hover {
+  color: var(--naranja);
+}
+
+/* ---------- 8. ARTISTAS ---------- */
+.artistas {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.artista {
+  text-align: center;
+}
+
+.circulo {
+  width: 100%;
+  max-width: 116px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  border: 4px solid var(--beige);
+  box-shadow: 0 6px 14px rgba(75, 46, 30, 0.25);
+  transition: transform 0.2s;
+}
+
+.artista:hover .circulo {
+  transform: scale(1.06);
+}
+
+.artista p {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Un color distinto para cada círculo */
+.c1 { background: radial-gradient(circle at 50% 38%, var(--beige) 0 20%, transparent 21%), var(--naranja); }
+.c2 { background: radial-gradient(circle at 50% 38%, var(--beige) 0 20%, transparent 21%), var(--oliva); }
+.c3 { background: radial-gradient(circle at 50% 38%, var(--beige) 0 20%, transparent 21%), var(--chocolate); }
+.c4 { background: radial-gradient(circle at 50% 38%, var(--beige) 0 20%, transparent 21%), #a24410; }
+.c5 { background: radial-gradient(circle at 50% 38%, var(--beige) 0 20%, transparent 21%), #8b8d45; }
+
+/* ---------- 9. LISTA DE CANCIONES ---------- */
+.cancion {
+  display: grid;
+  grid-template-columns: 52px 1fr 1fr 60px 40px;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #d8c9ac;
+}
+
+.portada {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--naranja), var(--chocolate));
+}
+
+.cancion-linea {
+  height: 12px;
+  width: 80%;
+  border-radius: 6px;
+  background-color: #d8c9ac;
+}
+
+.cancion-linea.chica {
+  width: 50%;
+}
+
+.duracion {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+.agregar {
+  font-size: 1.5rem;
+  color: var(--oliva);
+  transition: color 0.2s;
+}
+
+.agregar:hover {
+  color: var(--naranja);
+}
+
+/* ---------- 10. PANEL "REPRODUCIENDO" ---------- */
+.reproduciendo {
+  background-color: var(--beige);
+  padding: 28px 22px;
+}
+
+.reproduciendo h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.reproduciendo-portada {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 18px;
+  margin-bottom: 18px;
+  background: linear-gradient(170deg, var(--oliva) 0%, var(--chocolate) 100%);
+}
+
+.reproduciendo .cancion-linea {
+  margin-bottom: 10px;
+}
+
+.barra-progreso {
+  height: 6px;
+  margin: 22px 0;
+  border-radius: 4px;
+  background-color: #cdbb98;
+}
+
+.barra-avance {
+  width: 35%;
+  height: 100%;
+  border-radius: 4px;
+  background-color: var(--naranja);
+}
+
+.controles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+.controles button {
+  font-size: 1.2rem;
+  color: var(--chocolate);
+}
+
+.controles .play {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: var(--naranja);
+  color: var(--beige-claro);
+  font-size: 1.1rem;
+}
+
+/* ---------- 11. FONDO OSCURO PARA EL MENÚ EN CELULAR ---------- */
+.fondo-menu {
+  display: none;
+}
+
+/* =========================================
+   RESPONSIVO
+   ========================================= */
+
+/* Tablet: se oculta el panel de reproducción */
+@media (max-width: 1000px) {
+  .contenedor,
+  body.menu-alternado .contenedor {
+    grid-template-columns: 220px 1fr;
+  }
+
+  body.menu-alternado .contenedor {
+    grid-template-columns: 0 1fr;
+  }
+
+  .reproduciendo {
+    display: none;
+  }
+
+  .principal {
+    border-radius: 28px 0 0 28px;
+  }
+}
+
+/* Celular: el menú se vuelve un cajón que se desliza desde la izquierda */
+@media (max-width: 700px) {
+  .contenedor,
+  body.menu-alternado .contenedor {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-lateral,
+  body.menu-alternado .menu-lateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    padding: 24px 20px;
+    z-index: 20;
+    visibility: visible;
+    transform: translateX(-100%);
+    overflow-y: auto;
+  }
+
+  /* Al oprimir el botón, el menú entra */
+  body.menu-alternado .menu-lateral {
+    transform: translateX(0);
+  }
+
+  body.menu-alternado .fondo-menu {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(53, 32, 15, 0.6);
+    z-index: 10;
+  }
+
+  .principal {
+    border-radius: 0;
+    padding: 18px 16px 32px;
+  }
+
+  .pestanas {
+    width: 100%;
+    gap: 18px;
+    overflow-x: auto;
+  }
+
+  .banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+  }
+
+  .banner-texto {
+    width: 100%;
+  }
+
+  .banner-imagen {
+    display: none;
+  }
+
+  /* Los artistas se deslizan de lado */
+  .artistas {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding-bottom: 8px;
+  }
+
+  .artista {
+    flex: 0 0 100px;
+  }
+
+  .cancion {
+    grid-template-columns: 48px 1fr 50px 32px;
+  }
+
+  .cancion .cancion-linea.chica {
+    display: none;
+  }
+}
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- Fondo oscuro que aparece cuando el menú está abierto en celular -->
+  <div class="fondo-menu" id="fondoMenu"></div>
+
+  <div class="contenedor">
+
+    <!-- ========== MENÚ LATERAL DESPLEGABLE ========== -->
+    <aside class="menu-lateral" id="menuLateral">
+      <div class="puntos">
+        <img src="LOGO.jpg" class="circulo"></span>
+        <span class="punto punto-amarillo"></span>
+        <span class="punto punto-verde"></span>
+      </div>
+
+      <h2 class="menu-titulo">Biblioteca</h2>
+      <nav>
+        <ul class="menu-lista">
+          <li><a href="plantilla-completa.html(EVE).html" class="activo">Explorar</a></li>
+          <li><a href="RAUW-.html">Rauw Alejandro</a></li>
+          <li><a href="alvaro.html">Álvaro Díaz</a></li>
+          <li><a href="mon.html">Mon Laferte</a></li>
+          <li><a href="yan.html">Yan Block</a></li>
+        </ul>
+      </nav>
+
+      <h2 class="menu-titulo">Mi música</h2>
+      <nav>
+        <ul class="menu-lista menu-secundaria">
+          <li><a href="#">Reproducidas recientemente</a></li>
+          <li><a href="#">Canciones favoritas</a></li>
+          <li><a href="#">Archivos locales</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ========== CONTENIDO PRINCIPAL ========== -->
+    <main class="principal">
+
+      <!-- Barra superior -->
+      <header class="barra-superior">
+        <button class="boton-menu" id="botonMenu" aria-label="Abrir o cerrar menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+
+        <div class="ruta">
+          <a href="artistas.html">Artistas</a>
+          <span class="separador">&gt;</span>
+          <span>Top 2026</span>
+        </div>
+
+        <nav class="pestanas">
+          <a href="#" class="activo">Novedades</a>
+          <a href="parati.html">Para ti</a>
+          <a href="#">Aleatorio</a>
+        </nav>
+      </header>
+
+      <!-- Banner grande (playlist destacada) -->
+      <section class="banner">
+        <div class="banner-texto">
+          <p class="etiqueta">Playlist destacada</p>
+          <div class="banner-datos">
+            <span class="dato-vacio"></span>
+          </div>
+
+          <video autoplay muted loop controls style="width:200%; height: 10%; border-radius:20px; object-fit:cover,">
+          <source src="mon.mp4" type=video/mp4>
+          </video>
+        </div>
+      </section>
+
+      <!-- Artistas populares -->
+      <section class="seccion">
+        <div class="">
+          <a href="#">Ver todo</a>
+        </div>
+
+        <div class="artistas">
+        <img src="mon.jpg" class="circulo">
+            <p>Mon Laferte</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Reproducidas recientemente -->
+      <section class="seccion">
+        <div class="seccion-encabezado">
+          <h2>Canciones más reproducidas</h2>
+        </div>
+
+        <ul class="lista-canciones">
+            <li>
+          <li class="Todo de ti">
+            <div class="Todo de Ti"></div>
+         <div>
+            <audio controls src="mon-1.mp3"></audio>
+            </audio>
+          </li>
+          <li class="todo de ti">
+          <div class="portada"></div>
+         <div>
+            <audio controls src="mon-2.mp3"></audio>
+            </audio>
+          </li>
+          <li class="todo de ti">
+          <div class="portada"></div>
+         <div>
+            <audio controls src="mon-3.mp3"></audio>
+            </audio>
+          </li>
+          <li class="todo de ti">
+          <div class="portada"></div>
+         <div>
+            <audio controls src="mon-4.mp3"></audio>
+            </audio>
+          </li>
+          
+        </ul>
+      </section>
+    </main>
+
+    <!-- ========== PANEL "REPRODUCIENDO AHORA" ========== -->
+    
+
+  </div>
+
+  <!-- Un poquito de JavaScript solo para abrir y cerrar el menú -->
+  <script>
+    var boton = document.getElementById("botonMeuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu,nu");
+    var fondo = document.getElementById("fondoMenu");
+
+    function alternarMenu() {
+      var abierto = document.body.classList.toggle("menu-alternado");
+      boton.setAttribute("aria-expanded", abierto);
+    }
+
+    boton.addEventListener("click", alternarMenu);
+    fondo.addEventListener("click", alternarMenu);
+  </script>
+</body>
+</html>

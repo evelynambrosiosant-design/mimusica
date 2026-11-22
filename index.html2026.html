@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Formulario Neón</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* Respaldo: mismo diseño de styles.css, por si el archivo no carga */
+:root{
+  --bg1:#C1A0AC;--bg2:#F0D9E4;--card:rgba(255,255,255,.7);--txt:#ffffff;--muted:#6b7280;
+  --line:rgba(99,102,241,.35);--a:#7c3aed;--b:#06b6d4;--ok:#16a34a;--bad:#e11d48;--input:rgba(255,255,255,.85);
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg1:#e8adaa;--bg2:#e8adaa;--card:rgba(20,16,50,.65);--txt:#ffffff;--muted:#a5b4fc;
+  --line:rgba(139,92,246,.5);--a:#a78bfa;--b:#22d3ee;--ok:#4ade80;--bad:#fb7185;--input:rgba(10,8,30,.7);}
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;display:grid;place-items:center;padding:24px 16px;
+  font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;color:var(--txt);
+  background:var(--bg1);
+  background-image:radial-gradient(circle at 15% 10%,var(--a) 0,transparent 35%),
+                   radial-gradient(circle at 90% 90%,var(--b) 0,transparent 35%),
+                   linear-gradient(135deg,var(--bg1),var(--bg2));
+  background-attachment:fixed;
+}
+form{
+  width:100%;max-width:460px;padding:28px 22px;border-radius:28px;
+  background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line);box-shadow:0 0 40px -10px var(--a);
+}
+h1{
+  margin:0 0 4px;font-size:1.7rem;letter-spacing:1px;
+  background:linear-gradient(90deg,var(--a),var(--b));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.sub{margin:0 0 20px;color:var(--muted);font-size:.9rem}
+.f{margin-bottom:14px}
+label{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px}
+input{
+  width:100%;padding:12px 14px;font-size:1rem;color:var(--txt);background:var(--input);
+  border:1.5px solid var(--line);border-radius:14px;outline:none;transition:.2s;
+}
+input:focus{border-color:var(--b);box-shadow:0 0 0 3px rgba(34,211,238,.3)}
+input.bad{border-color:var(--bad)}
+input.good{border-color:var(--ok)}
+.err{min-height:1em;margin-top:4px;font-size:.78rem;color:var(--bad)}
+button{
+  width:100%;margin-top:8px;padding:14px;font-size:1.05rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:#fff;border:0;border-radius:16px;cursor:pointer;
+  background:linear-gradient(90deg,var(--a),var(--b));box-shadow:0 8px 24px -8px var(--a);transition:.25s;
+}
+button:active{transform:scale(.97)}
+button.ok{background:linear-gradient(90deg,#16a34a,#22c55e)}
+button.error{background:linear-gradient(90deg,#e11d48,#ef4444);animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+#msg{margin-top:12px;text-align:center;font-weight:700;min-height:1.3em}
+</style>
+</head>
+<body>
+
+<!-- Fondo oscuro que aparece cuando el menú está abierto en celular -->
+  <div class="" id="fondoMenu"></div>
+
+  <div class="contenedor">
+
+    <!-- ========== MENÚ LATERAL DESPLEGABLE ========== -->
+    <aside class="menu-lateral" id="menuLateral">
+      <div class="puntos">
+        <span class="punto punto-rojo"></span>
+        <span class="punto punto-amarillo"></span>
+        <span class="punto punto-verde"></span>
+      </div>
+      <h2 class="menu-titulo">Biblioteca</h2>
+      <nav>
+        <ul class="menu-lista">
+          <li><a href="#" class="activo">Explorar</a></li>
+          <li><a href="index.html2026.html">Inscripción</a></li>
+          <li><a href="RAUW-.html">Rauw Alejandro</a></li>
+          <li><a href="alvaro.html">Álvaro Díaz</a></li>
+          <li><a href="mon.html">Mon Laferte</a></li>
+          <li><a href="yan.html">Yan Block</a></li>
+
+        </ul>
+      </nav>
+      <form id="f" novalidate autocomplete="off">
+  <h1>Registro</h1>
+  <p class="sub">Llena tus datos</p>
+
+  <div class="f"><label for="nombre">Nombre</label><input id="nombre" data-t="name" maxlength="100" placeholder="NOMBRE"><div class="err"></div></div>
+  <div class="f"><label for="paterno">Apellido paterno</label><input id="paterno" data-t="name" maxlength="100" placeholder="APELLIDO PARTERNO"><div class="err"></div></div>
+  <div class="f"><label for="materno">Apellido materno</label><input id="materno" data-t="name" maxlength="100" placeholder="APELLIDO MATERNO"><div class="err"></div></div>
+  <div class="f"><label for="edad">Edad</label><input id="edad" data-t="age" inputmode="numeric" maxlength="3" placeholder=""><div class="err"></div></div>
+  <div class="f"><label for="tarjeta">Número de tarjeta</label><input id="tarjeta" data-t="card" inputmode="numeric" maxlength="16" placeholder=""><div class="err"></div></div>
+  <div class="f"><label for="fecha">Fecha</label><input id="fecha" type="date" data-t="date"><div class="err"></div></div>
+
+  <button type="submit" id="btn">Validar</button>
+  <div id="msg" role="status"></div>
+</form>
+
+<script src="script.js"></script>
+<script>
+/* Respaldo: mismo código de script.js, por si el archivo no carga */
+if (!window.__formInit) {
+window.__formInit = true;
+
+const form = document.getElementById('f');
+const btn = document.getElementById('btn');
+const msg = document.getElementById('msg');
+
+// Limpia lo que se escribe según el tipo de campo
+const clean = {
+  name: v => v.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]/g, '').toUpperCase().slice(0, 100),
+  age:  v => v.replace(/\D/g, '').slice(0, 3),
+  card: v => v.replace(/\D/g, '').slice(0, 16),
+  date: v => v
+};
+
+// Valida y devuelve el mensaje de error ('' si está bien)
+const check = {
+  name: v => v.trim().length > 0 ? '' : 'Campo obligatorio',
+  age:  v => v.length >= 1 ? '' : 'Escribe tu edad (hasta 3 números)',
+  card: v => v.length >= 1 ? '' : 'Escribe tu número (máx. 16 dígitos)',
+  date: v => !v ? 'Elige una fecha' : (new Date(v) > new Date() ? 'La fecha no puede ser futura' : '')
+};
+
+function resetBtn() {
+  btn.className = '';
+  btn.textContent = 'Validar';
+  msg.textContent = '';
+}
+
+form.querySelectorAll('input').forEach(input => {
+  input.addEventListener('input', () => {
+    input.value = clean[input.dataset.t](input.value);
+    input.classList.remove('bad', 'good');
+    input.nextElementSibling.textContent = '';
+    resetBtn();
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  let ok = true;
+
+  form.querySelectorAll('input').forEach(input => {
+    const error = check[input.dataset.t](input.value);
+    input.classList.toggle('bad', !!error);
+    input.classList.toggle('good', !error);
+    input.nextElementSibling.textContent = error;
+    if (error) ok = false;
+  });
+
+  btn.className = ok ? 'ok' : 'error';
+  btn.textContent = ok ? '¡Listo!' : 'Error';
+  msg.style.color = ok ? 'var(--ok)' : 'var(--bad)';
+  msg.textContent = ok ? '✅ Todo está en orden' : '';
+});
+}
+</script>
+</body>
+</html>
+<!-- Fondo oscuro que aparece cuando el menú está abierto en celular -->
+ /* ---- Página tipo Spotify ---- */
+  var listas = [
+    ["Mix diario 1","Café, Zoé y más","linear-gradient(135deg,#ff6a3d,#c4137a)"],
+    ["Éxitos del día","Lo más escuchado","linear-gradient(135deg,#4facfe,#2b32b2)"],
+    ["Noche tranquila","Piano y calma","linear-gradient(135deg,#1d976c,#0b3d2e)"],
+    ["Rock en español","Clásicos que no mueren","linear-gradient(135deg,#f7b733,#fc4a1a)"],
+    ["Para entrenar","Ritmo sin parar","linear-gradient(135deg,#a18cd1,#fbc2eb)"],
+    ["Cumbia y más","Para bailar","linear-gradient(135deg,#00c6ff,#0072ff)"]
+  ];
+  var cur = null, playing = false, pct = 0, tick = null;
+  var cont = $("lista");
+  listas.forEach(function(l, i){
+    var b = document.createElement("button");
+    b.className = "pl"; b.type = "button";
+    b.innerHTML = '<div class="art" style="background:'+l[2]+'"></div><b>'+l[0]+'</b><span>'+l[1]+'</span>';
+    b.addEventListener("click", function(){ elegir(i); });
+    cont.appendChild(b);
+  });
+  function elegir(i){
+    cur = i; pct = 0;
+    [].forEach.call(cont.children, function(c, j){ c.classList.toggle("sel", i === j); });
+    $("pTitulo").textContent = listas[i][0];
+    $("pSub").textContent = listas[i][1];
+    $("miniArt").style.background = listas[i][2];
+    reproducir(true);
+  }
+  function reproducir(on){
+    playing = on;
+    $("play").textContent = on ? "❚❚" : "▶";
+    $("play").setAttribute("aria-label", on ? "Pausar" : "Reproducir");
+    clearInterval(tick);
+    if(on) tick = setInterval(function(){ pct = (pct + .4) % 100; $("prog").style.width = pct + "%"; }, 200);
+  }
+  $("play").addEventListener("click", function(){
+    if(cur === null) elegir(0); else reproducir(!playing);
+  });
+  $("salir").addEventListener("click", function(){
+    ok = false; reproducir(false);
+    var b = $("btn"); b.className = ""; b.textContent = "Validar"; $("estado").textContent = "";
+    history.replaceState(null, "", location.pathname + location.search);
+    vista();
+  });
+
+  function vista(){
+    var musica = ok && location.hash === "#musica";
+    $("registro").classList.toggle("hidden", musica);
+    $("musica").classList.toggle("hidden", !musica);
+    if(musica){
+      $("saludo").textContent = "Hola, " + $("nombre").value.trim().split(" ")[0];
+      window.scrollTo(0,0);
+    }
+  }
+  window.addEventListener("hashchange", vista);
+  vista();
+})();
+</script>
+</body>
+</html>
